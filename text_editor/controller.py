@@ -25,10 +25,21 @@ class Controller:
         self.count = 0
 
     def open_file(self, file_way: str):
-        pass
+        text = []
+        with open(file_way, encoding='utf-8') as f:
+            while True:
+                line = f.readline()
+                if not line:
+                    break
+                list_line = list(line)
+                text.extend(list_line)
+        self.driver.set_text(text)
 
     def save_file(self, file_way: str):
-        pass
+        text = self.driver.get_text()
+        print(f'\n{text}\n')
+        with open(file_way, 'w', encoding='utf-8') as file:
+            file.write(text)
 
     def _move_on(self):
         self.driver.move_on(self.count)

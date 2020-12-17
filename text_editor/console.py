@@ -18,6 +18,8 @@ class Console:
         print('cut x: вырезает х символов от курсора, х > 0 - берет символы справа, х < 0 - слева;')
         print('past: вставляет скопированное/вырезанное ранее;')
         print('get_current_position: выводит текущую позицию курсора;')
+        print('open - открыть новый текстовый файл;')
+        print('save - сохранить текущий файл;')
         print('exit: выход.')
         print()
         print('Для возвращения на главную нажмите enter')
@@ -48,6 +50,12 @@ class Console:
               '\nДля подтверждения нажмите enter.\n')
         self.controller.insert(input())
 
+    def _open(self):
+        self.controller.open_file(input('Введите путь до файла: '))
+
+    def _save(self):
+        self.controller.save_file(input('Введите путь до файла: '))
+
     def start(self):
         while True:
             os.system('cls' if os.name == 'nt' else 'clear')
@@ -64,8 +72,14 @@ class Console:
             if user_input[0] == 'insert':
                 self._insert_mode()
                 continue
+            if user_input[0] == 'open':
+                self._open()
+                continue
+            if user_input[0] == 'save':
+                self._save()
+                continue
             if user_input[0] not in self.controller.commands:
-                print('\nНеизвестная команда')
+                input('\nНеизвестная команда. Для продолжения нажмите enter')
                 continue
             any_errors = self._set_arguments(user_input[1:])
             if any_errors:

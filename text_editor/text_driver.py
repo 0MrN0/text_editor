@@ -1,3 +1,6 @@
+from typing import List
+
+
 class TextDriver:
     def __init__(self, gap_size: int, text: str):
         self.text = list(text)
@@ -10,6 +13,14 @@ class TextDriver:
 
     def get_text(self) -> str:
         return ''.join(self.text)
+
+    def set_text(self, text: List[str]):
+        self.text = text
+        for i in range(self.gap_size):
+            self.text.append('')
+        self.gap_start = len(self.text) - self.gap_size
+        self.gap_end = len(self.text) - 1
+        self.copy_buffer = []
 
     # offset > 0 - right, else left
     def move_on(self, offset: int):
@@ -53,7 +64,7 @@ class TextDriver:
                 continue_iteration = False
                 continue
             if i + 1 < len(self.text) and string[i] == '\\' and (string[i + 1] == 'n'
-                                      or string[i + 1] == 't'):
+                                                                 or string[i + 1] == 't'):
                 if string[i + 1] == 'n':
                     self.text[self.gap_start] = '\n'
                 elif string[i + 1] == 't':
