@@ -63,8 +63,8 @@ class TextDriver:
             if continue_iteration:
                 continue_iteration = False
                 continue
-            if i + 1 < len(self.text) and string[i] == '\\' and (string[i + 1] == 'n'
-                                                                 or string[i + 1] == 't'):
+            if i + 1 < len(self.text) and string[i] == '\\'\
+                    and (string[i + 1] == 'n' or string[i + 1] == 't'):
                 if string[i + 1] == 'n':
                     self.text[self.gap_start] = '\n'
                 elif string[i + 1] == 't':
@@ -120,7 +120,6 @@ class TextDriver:
                 self.delete()
             else:
                 self.copy_buffer.append(self.text[i])
-
 
     def past(self):
         self.insert(''.join(self.copy_buffer))
